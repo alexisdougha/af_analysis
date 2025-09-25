@@ -341,7 +341,9 @@ def ipTM_d0_lig(my_data, weight_avg=False, verbose=True):
             lig_index = np.argmin(chain_length)
             lig_chain = chains[lig_index]
             rec_chains = chains[:lig_index] + chains[lig_index + 1 :]
-            rec_chain_indexes = list(range(lig_index)) + list(range(lig_index + 1, len(chains)))
+            rec_chain_indexes = list(range(lig_index)) + list(
+                range(lig_index + 1, len(chains))
+            )
 
         local_ipTM_list = []
 
@@ -349,16 +351,18 @@ def ipTM_d0_lig(my_data, weight_avg=False, verbose=True):
             sum_chain_length = sum(my_data.chain_length[old_query])
         else:
             sum_chain_length = len(rec_chains)
-        
+
         for rec_chain, rec_index in zip(rec_chains, rec_chain_indexes):
             # Get the ipTM_d0 for the ligand chain
             if weight_avg:
-                local_ipTM_list.append(row[f"ipTM_d0_{rec_chain}_{lig_chain}"] * my_data.chain_length[old_query][rec_index])
+                local_ipTM_list.append(
+                    row[f"ipTM_d0_{rec_chain}_{lig_chain}"]
+                    * my_data.chain_length[old_query][rec_index]
+                )
             else:
                 local_ipTM_list.append(row[f"ipTM_d0_{rec_chain}_{lig_chain}"])
 
-        ipTM_list.append(sum(local_ipTM_list)/sum_chain_length)
-
+        ipTM_list.append(sum(local_ipTM_list) / sum_chain_length)
 
     my_data.df.loc[:, "ipTM_d0_lig"] = ipTM_list
 
@@ -366,17 +370,17 @@ def ipTM_d0_lig(my_data, weight_avg=False, verbose=True):
 def ipSAE_lig(my_data, weight_avg=False, verbose=True):
     """Compute the ipSAE score for the receptor-ligand interface.
 
-    Parameters
-    ----------
-    my_data : AF2Data
-        object containing the data
-    verbose : bool
-        whether to print progress information
-lig_index = np.argmin(chain_length)
-    Returns
-    -------
-    None
-        The `my_data.df` dataframe is modified in place.
+        Parameters
+        ----------
+        my_data : AF2Data
+            object containing the data
+        verbose : bool
+            whether to print progress information
+    lig_index = np.argmin(chain_length)
+        Returns
+        -------
+        None
+            The `my_data.df` dataframe is modified in place.
 
     """
 
@@ -394,23 +398,27 @@ lig_index = np.argmin(chain_length)
             lig_index = np.argmin(chain_length)
             lig_chain = chains[lig_index]
             rec_chains = chains[:lig_index] + chains[lig_index + 1 :]
-            rec_chain_indexes = list(range(lig_index)) + list(range(lig_index + 1, len(chains)))
+            rec_chain_indexes = list(range(lig_index)) + list(
+                range(lig_index + 1, len(chains))
+            )
 
         local_ipTM_list = []
         if weight_avg:
             sum_chain_length = sum(my_data.chain_length[old_query])
         else:
             sum_chain_length = len(rec_chains)
-        
+
         for rec_chain, rec_index in zip(rec_chains, rec_chain_indexes):
             # Get the ipTM_d0 for the ligand chain
             if weight_avg:
-                local_ipTM_list.append(row[f"ipSAE_{rec_chain}_{lig_chain}"] * my_data.chain_length[old_query][rec_index])
+                local_ipTM_list.append(
+                    row[f"ipSAE_{rec_chain}_{lig_chain}"]
+                    * my_data.chain_length[old_query][rec_index]
+                )
             else:
                 local_ipTM_list.append(row[f"ipSAE_{rec_chain}_{lig_chain}"])
 
-        ipTM_list.append(sum(local_ipTM_list)/sum_chain_length)
-
+        ipTM_list.append(sum(local_ipTM_list) / sum_chain_length)
 
     my_data.df.loc[:, "ipSAE_lig"] = ipTM_list
 
@@ -446,7 +454,9 @@ def ipTM_d0_interface_lig(my_data, weight_avg=False, verbose=True):
             lig_index = np.argmin(chain_length)
             lig_chain = chains[lig_index]
             rec_chains = chains[:lig_index] + chains[lig_index + 1 :]
-            rec_chain_indexes = list(range(lig_index)) + list(range(lig_index + 1, len(chains)))
+            rec_chain_indexes = list(range(lig_index)) + list(
+                range(lig_index + 1, len(chains))
+            )
 
         local_ipTM_list = []
 
@@ -454,15 +464,17 @@ def ipTM_d0_interface_lig(my_data, weight_avg=False, verbose=True):
             sum_chain_length = sum(my_data.chain_length[old_query])
         else:
             sum_chain_length = len(rec_chains)
-        
+
         for rec_chain, rec_index in zip(rec_chains, rec_chain_indexes):
             # Get the ipTM_d0 for the ligand chain
             if weight_avg:
-                local_ipTM_list.append(row[f"ipTM_interface_{rec_chain}_{lig_chain}"] * my_data.chain_length[old_query][rec_index])
+                local_ipTM_list.append(
+                    row[f"ipTM_interface_{rec_chain}_{lig_chain}"]
+                    * my_data.chain_length[old_query][rec_index]
+                )
             else:
                 local_ipTM_list.append(row[f"ipTM_interface_{rec_chain}_{lig_chain}"])
 
-        ipTM_list.append(sum(local_ipTM_list)/sum_chain_length)
-
+        ipTM_list.append(sum(local_ipTM_list) / sum_chain_length)
 
     my_data.df.loc[:, "ipTM_interface_lig"] = ipTM_list
