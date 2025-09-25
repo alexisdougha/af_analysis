@@ -15,6 +15,7 @@ import logging
 import ipywidgets as widgets
 
 from .format import (
+    colabfold_1_5_custom,
     colabfold_1_5,
     af3_webserver,
     afpulldown,
@@ -148,7 +149,11 @@ class Data:
         """
         self.dir = directory
 
-        if format == "colabfold_1.5" or os.path.isfile(
+        if format == "colabfold_1_5_custom":
+            self.format = "colabfold_1_5_custom"
+            self.df = colabfold_1_5_custom.read_dir(directory)
+            self.df["format"] = "colabfold_1_5_custom"
+        elif format == "colabfold_1.5" or os.path.isfile(
             os.path.join(directory, "log.txt")
         ):
             self.format = "colabfold_1.5"
@@ -547,6 +552,7 @@ class Data:
         row = self.df.iloc[index]
 
         if row["format"] in [
+            "colabfold_1_5_custom",
             "AF3_webserver",
             "AF3_local",
             "csv",
